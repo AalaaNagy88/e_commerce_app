@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "259403379485",
+    "firebase_url": "https://commerceapp-eb42c.firebaseio.com",
+    "project_id": "commerceapp-eb42c",
+    "storage_bucket": "commerceapp-eb42c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259403379485:android:cebc2ea5bcecbcd21a67f4",
+        "android_client_info": {
+          "package_name": "com.alaanagy.e_commerce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259403379485-rrae304tv37ghfgu12g3niii7mdnmhp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alaanagy.e_commerce_app",
+            "certificate_hash": "21d5f8bb4b54ee84810083dad01022f8c0b0526e"
+          }
+        },
+        {
+          "client_id": "259403379485-v0f5bfg3e3cphr5e67bsfu6s6u6r77bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdsQv9whMaK9PFbGiQ2wIKjqJYXOSOsk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259403379485-v0f5bfg3e3cphr5e67bsfu6s6u6r77bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
