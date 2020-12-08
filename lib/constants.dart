@@ -7,3 +7,4 @@ const LinearGradient kButtonColor=LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+const kProductsCollectionName="FreelancerProducts";

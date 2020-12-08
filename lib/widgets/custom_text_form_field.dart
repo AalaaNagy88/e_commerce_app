@@ -18,8 +18,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Padding(
       padding:  EdgeInsets.symmetric(horizontal: ScreenHelper.givewidth(context, .05)),
       child: TextFormField(
+        // ignore: missing_return
         validator: (value){
-          // ignore: missing_return
           if(value.isEmpty)return "Please, Enter vaild ${widget.label.toLowerCase()}";
         },
         onSaved: widget.onSaved,
