@@ -30,6 +30,12 @@ class Store{
   void addNewProduct(ProductModel product){
     firebaseFirestore.collection(kProductsCollectionName).add(product.toJson());
   }
+  void editProduct(documentId,data){
+    firebaseFirestore.collection(kProductsCollectionName).doc(documentId).update(data);
+  }
+  void deleteProduct(documentId){
+    firebaseFirestore.collection(kProductsCollectionName).doc(documentId).delete();
+  }
   Stream<QuerySnapshot> loadAllProducts(){
     return firebaseFirestore.collection(kProductsCollectionName).snapshots();
   }

@@ -1,4 +1,3 @@
-import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/core/helper/screen_helper.dart';
 import 'package:e_commerce_app/core/models/product_model.dart';
 import 'package:e_commerce_app/core/providers/image_picker_provider.dart';
@@ -7,6 +6,7 @@ import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_drop_down_list.dart';
 import 'package:e_commerce_app/widgets/custom_pick_image.dart';
 import 'package:e_commerce_app/widgets/custom_text_form_field.dart';
+import 'package:e_commerce_app/widgets/image_with_broder.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
@@ -26,13 +26,13 @@ class _AddNewProductState extends State<AddNewProduct> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Add New Product"),
-      ),
-      body: ModalProgressHUD(
-        inAsyncCall: _loading,
-        child: Form(
+    return ModalProgressHUD(
+      inAsyncCall: _loading,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Add New Product"),
+        ),
+        body: Form(
           key: _globalKey,
           child: ListView(
             children: [
@@ -90,21 +90,10 @@ class _AddNewProductState extends State<AddNewProduct> {
                 height: ScreenHelper.giveheight(context, .03),
               ),
               if (Provider.of<ImagePickerProvider>(context).image != null) ...[
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenHelper.givewidth(context, .05)),
-                  child: Container(
-                    padding:
-                        EdgeInsets.all(ScreenHelper.givewidth(context, .03)),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: kMainColor, width: 1)),
-                    child: Center(
-                      child: Image.file(
-                          Provider.of<ImagePickerProvider>(context).image,
-                          fit: BoxFit.cover),
-                    ),
-                  ),
+                ImageWithBroder(
+                  imageSource: Image.file(
+                      Provider.of<ImagePickerProvider>(context).image,
+                      fit: BoxFit.cover),
                 ),
               ],
               SizedBox(
@@ -113,18 +102,13 @@ class _AddNewProductState extends State<AddNewProduct> {
               Builder(
                 builder: (context) => CustomButton(
                   onPressed: () async {
-                    _isLoading(true);
-
                     _catogery = CustomDropdownList.category;
-                    print(_catogery);
-                    _imageUrl = await _store.uploadImage(context);
-                    print(_imageUrl);
-
                     if (_globalKey.currentState.validate() &&
-                        _catogery != null &&
-                        _imageUrl != null) {
+                        _catogery != null) {
                       _globalKey.currentState.save();
                       try {
+                        _isLoading(true);
+                        _imageUrl = await _store.uploadImage(context);
                         _store.addNewProduct(ProductModel(
                             name: _name,
                             price: _price,
@@ -132,6 +116,7 @@ class _AddNewProductState extends State<AddNewProduct> {
                             category: _catogery,
                             imageUrl: _imageUrl));
                         _isLoading(false);
+                        Navigator.pop(context);
                       } catch (e) {
                         _isLoading(false);
                         Scaffold.of(context).showSnackBar(SnackBar(

@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
             SignUpScreen.routeName: (context) => SignUpScreen(),
             AdminPanal.routeName: (context) => AdminPanal(),
             AddNewProduct.routeName: (context) => AddNewProduct(),
-            EditProduct.routeName: (context) => EditProduct()
+            EditProduct.routeName: (context) => EditProduct(),
+
           }),
     );
   }

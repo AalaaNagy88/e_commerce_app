@@ -5,8 +5,9 @@ class CustomTextFormField extends StatefulWidget {
   final String label;
   final Function onSaved;
   bool isPassword;
+  final String initialValue;
 
-  CustomTextFormField({Key key, this.label, this.isPassword=false,this.onSaved}) : super(key: key);
+  CustomTextFormField({Key key, this.label, this.isPassword=false,this.onSaved,this.initialValue}) : super(key: key);
 
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
@@ -22,6 +23,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         validator: (value){
           if(value.isEmpty)return "Please, Enter vaild ${widget.label.toLowerCase()}";
         },
+        initialValue: widget.initialValue,
         onSaved: widget.onSaved,
         obscureText: widget.isPassword,
         decoration: InputDecoration(
