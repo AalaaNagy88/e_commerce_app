@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/core/helper/screen_helper.dart';
+import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';

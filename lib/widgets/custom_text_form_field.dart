@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/core/helper/screen_helper.dart';
+import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
@@ -19,10 +19,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Padding(
       padding:  EdgeInsets.symmetric(horizontal: ScreenHelper.givewidth(context, .05)),
       child: TextFormField(
-        // ignore: missing_return
-        validator: (value){
-          if(value.isEmpty)return "Please, Enter vaild ${widget.label.toLowerCase()}";
-        },
+        validator: (value)=> value.isEmpty?"Please, Enter vaild ${widget.label.toLowerCase()}":null,
         initialValue: widget.initialValue,
         onSaved: widget.onSaved,
         obscureText: widget.isPassword,

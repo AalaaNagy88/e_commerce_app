@@ -1,4 +1,5 @@
-import 'package:e_commerce_app/core/helper/screen_helper.dart';
+import 'package:e_commerce_app/helper/screen_helper.dart';
+import 'package:e_commerce_app/screens/login_screen.dart';
 import 'package:e_commerce_app/services/auth.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_text_form_field.dart';
@@ -106,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, SignUpScreen.routeName);
+                          Navigator.pushNamed(context, LoginScreen.routeName);
                         },
                       )
                     ],

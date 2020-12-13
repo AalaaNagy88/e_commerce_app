@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/constants.dart';
-import 'package:e_commerce_app/core/models/product_model.dart';
-import 'package:e_commerce_app/core/providers/image_picker_provider.dart';
+import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/providers/image_picker_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as p;

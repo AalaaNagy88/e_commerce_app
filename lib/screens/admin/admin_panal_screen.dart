@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:e_commerce_app/core/models/product_model.dart';
+import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/screens/admin/add_new_product_screen.dart';
 import 'package:e_commerce_app/services/store.dart';
 import 'package:e_commerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
-import 'add_new_product.dart';
 
-class AdminPanal extends StatelessWidget {
+class AdminPanalScreen extends StatelessWidget {
   static String routeName = "AdminPanal";
   final _store = Store();
 
@@ -36,7 +36,7 @@ class AdminPanal extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.post_add),
-        onPressed: () => Navigator.pushNamed(context, AddNewProduct.routeName),
+        onPressed: () => Navigator.pushNamed(context, AddNewProductScreen.routeName),
       ),
     );
   }

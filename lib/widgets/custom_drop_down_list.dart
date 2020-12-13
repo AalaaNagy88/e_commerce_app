@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/core/helper/screen_helper.dart';
+import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropdownList extends StatefulWidget {

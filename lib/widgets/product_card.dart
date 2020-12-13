@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/core/helper/screen_helper.dart';
-import 'package:e_commerce_app/core/models/product_model.dart';
-import 'package:e_commerce_app/screens/admin/product_detials.dart';
+import 'package:e_commerce_app/helper/screen_helper.dart';
+import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/screens/admin/product_detials_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(context,MaterialPageRoute(builder:(context)=>ProductDetials(product: product,))),
+      onTap: () => Navigator.push(context,MaterialPageRoute(builder:(context)=>ProductDetialsScreen(product: product,))),
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: ScreenHelper.givewidth(context, .02),
