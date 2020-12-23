@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
+import 'package:e_commerce_app/screens/user/home_screen.dart';
 import 'package:e_commerce_app/services/auth.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_text_form_field.dart';
@@ -91,6 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                      _isLoading(false);
                      if(result.user.uid=="DaNtyvAV0TaESYJULzghyMyV83T2"){
                        Navigator.pushReplacementNamed(context, AdminPanalScreen.routeName);
+                     }else{
+                       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
                      }
                    }catch(e){
                      _isLoading(false);

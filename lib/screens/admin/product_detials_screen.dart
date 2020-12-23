@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'edit_product_image_screen.dart';
 import 'edit_product_info_screen.dart';
+import 'local_wiget/edit_button.dart';
 
 class ProductDetialsScreen extends StatefulWidget {
   final ProductModel product;
@@ -73,21 +74,14 @@ class _ProductDetialsScreenState extends State<ProductDetialsScreen> {
                 Positioned(
                     top: 5,
                     right: 5,
-                    child: CircleAvatar(
-                      backgroundColor: kMainColor,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditProductImageScreen(
+                    child: EditButton(
+                      widget: widget,
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProductImageScreen(
                                     product: widget.product,
-                                  )));                        },
-                      ),
+                                  ))),
                     )),
               ],
             ),
@@ -104,23 +98,12 @@ class _ProductDetialsScreenState extends State<ProductDetialsScreen> {
                       .headline3
                       .copyWith(color: Colors.black),
                 ),
-                CircleAvatar(
-                  backgroundColor: kMainColor,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProductInfoScreen(
-                                    product: widget.product,
-                                  )));
-                    },
-                  ),
-                )
+                EditButton(widget: widget, onPressed: ()=>  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditProductInfoScreen(
+                          product: widget.product,
+                        ))))
               ],
             ),
             SizedBox(
@@ -154,3 +137,4 @@ class _ProductDetialsScreenState extends State<ProductDetialsScreen> {
     );
   }
 }
+

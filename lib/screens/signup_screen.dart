@@ -85,6 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           try {
                             await _auth.signUp(_email, _password);
                             _isLoading(false);
+                            Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                           }catch(e){
                             _isLoading(false);
                             Scaffold.of(context).showSnackBar(SnackBar(content: Text("${e.message}"),));

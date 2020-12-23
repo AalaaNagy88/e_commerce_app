@@ -1,9 +1,11 @@
+import 'package:e_commerce_app/providers/product_item_provider.dart';
 import 'package:e_commerce_app/screens/admin/add_new_product_screen.dart';
 import 'package:e_commerce_app/screens/admin/admin_panal_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_image_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_info_screen.dart';
 import 'package:e_commerce_app/screens/login_screen.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
+import 'package:e_commerce_app/screens/user/home_screen.dart';
 import 'package:e_commerce_app/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ImagePickerProvider>(
-            create: (context) => ImagePickerProvider())
+            create: (context) => ImagePickerProvider()),
+        ChangeNotifierProvider<ProductItem>(create: (context) => ProductItem())
       ],
       child: MaterialApp(
           title: 'Bolt',
@@ -37,8 +40,11 @@ class MyApp extends StatelessWidget {
             SignUpScreen.routeName: (context) => SignUpScreen(),
             AdminPanalScreen.routeName: (context) => AdminPanalScreen(),
             AddNewProductScreen.routeName: (context) => AddNewProductScreen(),
-            EditProductInfoScreen.routeName: (context) => EditProductInfoScreen(),
-            EditProductImageScreen.routeName: (context) => EditProductImageScreen(),
+            EditProductInfoScreen.routeName: (context) =>
+                EditProductInfoScreen(),
+            EditProductImageScreen.routeName: (context) =>
+                EditProductImageScreen(),
+            HomeScreen.routeName: (context) => HomeScreen(),
           }),
     );
   }
