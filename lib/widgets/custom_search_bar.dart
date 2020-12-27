@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -76,7 +77,7 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("test");
+    return ProductCard(product:selectedProduct ,);
   }
 
   @override
@@ -90,6 +91,7 @@ class Search extends SearchDelegate {
       itemCount: suggestedList.length,
       itemBuilder: (context,i)=>ListTile(title: Text(suggestedList[i].name),onTap: (){
         selectedProduct=suggestedList[i];
+        query=suggestedList[i].name;
         showResults(context);
       },),
     );

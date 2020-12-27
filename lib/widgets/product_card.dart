@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
             horizontal: ScreenHelper.givewidth(context, .02), vertical: 10),
         child: Stack(children: [
           Container(
-            width: ScreenHelper.givewidth(context, .6),
+            width: ScreenHelper.givewidth(context, .45),
             height: 180,
             decoration: BoxDecoration(
               gradient: kButtonColor,

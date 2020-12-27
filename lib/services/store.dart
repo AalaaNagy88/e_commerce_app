@@ -1,6 +1,8 @@
+
 import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/image_picker_provider.dart';
+import 'package:e_commerce_app/providers/product_item_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as p;
@@ -36,7 +38,15 @@ class Store{
   void deleteProduct(documentId){
     firebaseFirestore.collection(kProductsCollectionName).doc(documentId).delete();
   }
-  Stream<QuerySnapshot> loadAllProducts(){
-    return firebaseFirestore.collection(kProductsCollectionName).snapshots();
+  loadAllProducts(context){
+    return firebaseFirestore.collection(kProductsCollectionName).snapshots().listen((event) {
+      Provider.of<ProductItem>(context,listen: false).productList=[];
+      for(QueryDocumentSnapshot data in event.docs){
+        ProductModel product =
+        ProductModel.fromJson(data.data(),data.id);
+        Provider.of<ProductItem>(context,listen: false).addProduct(product);
+        print("Add");
+      }
+    });
   }
 }

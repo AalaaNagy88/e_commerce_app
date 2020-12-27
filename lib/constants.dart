@@ -9,6 +9,11 @@ const LinearGradient kButtonColor=LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+const LinearGradient kDissabledButtonColor=LinearGradient(
+  colors: <Color>[Color(0xFFD7D7D7), Color(0xFF9B9B9B)],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
 const LinearGradient kKidsCat=LinearGradient(
   colors: <Color>[Color(0xFF43E97B), Color(0xFF38F9D7)],
   begin: Alignment.centerLeft,

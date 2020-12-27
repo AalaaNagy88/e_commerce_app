@@ -1,19 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/models/product_model.dart';
-import 'package:e_commerce_app/services/store.dart';
+import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/widgets/custom_screen_catogery.dart';
 import 'package:e_commerce_app/widgets/custom_search_bar.dart';
 import 'package:e_commerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
+import 'cart_screen.dart';
 import 'local_widget/catogery_card.dart';
 import 'local_widget/home_titles.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = "HomeScreen";
-  final _store = Store();
-
   @override
   Widget build(BuildContext context) {
+    List<ProductModel> products=Provider.of<ProductItem>(context).productList;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -33,66 +34,71 @@ class HomeScreen extends StatelessWidget {
                 Icons.shopping_cart,
                 color: Colors.black,
               ),
-              onPressed: () {},
+              onPressed: ()=>Navigator.pushNamed(context, CartScreen.routeName),
             )
           ],
         ),
         drawer: Drawer(),
         backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            CustomSearchBar(),
-            SizedBox(
-              height: 10,
-            ),
-            HomeTitles(name: "Categories"),
-            Container(
-              height: 100,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  CatogeryCard(
-                    color: kWomenCat,
-                    name: "women",
-                  ),
-                  CatogeryCard(
-                    color: kMenCat,
-                    name: "men",
-                  ),
-                  CatogeryCard(
-                    color: kKidsCat,
-                    name: "kids",
-                  ),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomSearchBar(),
+              SizedBox(
+                height: 10,
               ),
-            ),
-            HomeTitles(name: "Featured"),
-            StreamBuilder<QuerySnapshot>(
-                stream: _store.loadAllProducts(),
-                builder: (context, snapshots) {
-                  if (snapshots.hasData) {
-                    List<QueryDocumentSnapshot> lisData = snapshots.data.docs;
-                    return GridView.builder(
-                      itemCount: lisData.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: .7),
-                      itemBuilder: (context, i) {
-                        ProductModel product =
-                        ProductModel.fromJson(lisData[i].data(),lisData[i].id);
-                        return ProductCard(product: product);
-                      },
-                    );
-                  } else
-                    return Center(child: CircularProgressIndicator());
-                }),
-            Container(
+              HomeTitles(name: "Categories"),
+              Container(
                 height: 100,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: [],
-                )),
-            HomeTitles(name: "Best Sell"),
-          ],
+                  children: [
+                    CatogeryCard(
+                      color: kWomenCat,
+                      name: "women",
+                      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomScreenCatogery(title:"Women Items",catogeryName: "Women",))),
+                    ),
+                    CatogeryCard(
+                      color: kMenCat,
+                      name: "men",
+                      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomScreenCatogery(title:"Men Items",catogeryName: "Men",))),
+                    ),
+                    CatogeryCard(
+                      color: kKidsCat,
+                      name: "kids",
+                      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomScreenCatogery(title:"Kids Items",catogeryName: "Kids",))),
+                    ),
+                  ],
+                ),
+              ),
+              HomeTitles(name: "Featured"),
+             Container(
+               height: 260,
+               child: ListView.builder(
+                      itemCount: products.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, i) {
+                        ProductModel product =products[i];
+                        int x=int.parse(product.price);
+                        return x>=500?  ProductCard(product: product,isAdmin: false,): null;
+                      },
+                    )
+             ),
+              HomeTitles(name: "Best Sell"),
+              Container(
+                  height: 260,
+                  child: ListView.builder(
+                    itemCount: products.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, i) {
+                      ProductModel product =products[i];
+                      int x=int.parse(product.price);
+                      return x>=200? ProductCard(product: product,isAdmin: false,):null;
+                    },
+                  )
+              ),
+            ],
+          ),
         ));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/providers/product_item_provider.dart';
 import 'package:e_commerce_app/screens/admin/add_new_product_screen.dart';
 import 'package:e_commerce_app/screens/admin/admin_panal_screen.dart';
@@ -5,6 +6,7 @@ import 'package:e_commerce_app/screens/admin/edit_product_image_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_info_screen.dart';
 import 'package:e_commerce_app/screens/login_screen.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
+import 'package:e_commerce_app/screens/user/cart_screen.dart';
 import 'package:e_commerce_app/screens/user/home_screen.dart';
 import 'package:e_commerce_app/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<ImagePickerProvider>(
             create: (context) => ImagePickerProvider()),
+        ChangeNotifierProvider<CartProvider>(
+            create: (context) => CartProvider()),
         ChangeNotifierProvider<ProductItem>(create: (context) => ProductItem())
       ],
       child: MaterialApp(
@@ -45,6 +49,7 @@ class MyApp extends StatelessWidget {
             EditProductImageScreen.routeName: (context) =>
                 EditProductImageScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
+      CartScreen.routeName:(context)=>CartScreen()
           }),
     );
   }

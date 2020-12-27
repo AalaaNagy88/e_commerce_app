@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import 'local_widget/card_size.dart';
@@ -190,7 +192,9 @@ class ProductDetialsForUser extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomFlatButton(),
+      bottomNavigationBar: CustomFlatButton(
+        product: product,
+      ),
     );
   }
 }

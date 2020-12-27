@@ -13,11 +13,11 @@ class HomeTitles extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-          child: Text(name,style: Theme.of(context).textTheme.headline5.copyWith(color: Colors.black),),
+          child: Text(name,style: Theme.of(context).textTheme.headline5.copyWith(color: Colors.grey[700]),),
         ),
-        TextButton(child:Text("See all",style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.grey),),
-          onPressed: expand,
-        )
+//        TextButton(child:Text("See all",style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.grey),),
+//          onPressed: expand,
+//        )
       ],
     );
   }
