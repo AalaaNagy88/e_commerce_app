@@ -2,6 +2,7 @@ import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
 import 'package:e_commerce_app/screens/user/home_screen.dart';
 import 'package:e_commerce_app/services/auth.dart';
+import 'package:e_commerce_app/services/user_operations.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth=Auth();
 
   String _email,_password;
+  UserOperations _userOperations=UserOperations();
 
   bool _loading=false;
 
@@ -67,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: ScreenHelper.giveheight(context, .08),
             ),
-            CustomTextFormField(label: "Email",onSaved: (value){_email=value;},),
+            CustomTextFormField(label: "Email",onSaved: (value){_email=value.trim();},),
             SizedBox(
               height: ScreenHelper.giveheight(context, .02),
             ),
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
               label: "Password",
               isPassword: true,
               onSaved: (value){
-                _password=value;
+                _password=value.trim();
               },
             ),
             SizedBox(
@@ -89,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     _globalKey.currentState.save();
                    try{
                      UserCredential result=await _auth.signIn(_email, _password);
+                     _userOperations.getCurrentUserInfo(_email,context);
                      _isLoading(false);
                      if(result.user.uid=="DaNtyvAV0TaESYJULzghyMyV83T2"){
                        Navigator.pushReplacementNamed(context, AdminPanalScreen.routeName);

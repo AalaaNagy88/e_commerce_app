@@ -10,7 +10,6 @@ class ProductModel {
     this.description,
     this.category,
     this.imageUrl,
-    this.quantity=1,
     this.addedTocart=false
   });
   String id;
@@ -19,7 +18,6 @@ class ProductModel {
   String description;
   String category;
   String imageUrl;
-  int quantity;
   bool addedTocart;
 
   factory ProductModel.fromJson(Map<String, dynamic> json,String pid) => ProductModel(

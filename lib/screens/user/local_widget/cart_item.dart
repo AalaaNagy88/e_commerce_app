@@ -1,12 +1,13 @@
 import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/helper/screen_helper.dart';
+import 'package:e_commerce_app/models/cart_item_model.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CartItem extends StatefulWidget {
-  final ProductModel item;
+  final CartItemModel item;
 
   const CartItem({Key key, this.item}) : super(key: key);
   
@@ -41,7 +42,9 @@ class _CartItemState extends State<CartItem> {
                       Text(widget.item.name,style: Theme.of(context).textTheme.headline6,),
                       IconButton(onPressed: (){
                         setState(() {
-                          widget.item.addedTocart=false;
+                          ProductModel product=ProductModel();
+                          product.id= widget.item.id;
+                          product.addedTocart=false;
                         });
                         Provider.of<CartProvider>(context,listen: false).removeFromCart(widget.item);
                       },icon: Icon(Icons.close,color: Colors.grey[700],size: 30,),),

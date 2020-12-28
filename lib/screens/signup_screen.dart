@@ -1,8 +1,11 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
+import 'package:e_commerce_app/models/user_model.dart';
 import 'package:e_commerce_app/screens/login_screen.dart';
 import 'package:e_commerce_app/services/auth.dart';
+import 'package:e_commerce_app/services/user_operations.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_text_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -17,8 +20,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _globalKey=GlobalKey<FormState>();
 
   final _auth=Auth();
+  UserOperations _userOperations=UserOperations();
 
-  String _email,_password;
+  String _email,_password,_name;
   bool _loading=false;
   @override
   Widget build(BuildContext context) {
@@ -59,18 +63,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     height: ScreenHelper.giveheight(context, .08),
                   ),
-                  CustomTextFormField(label: "Name"),
+                  CustomTextFormField(label: "Name",onSaved: (value){_name=value.trim();},),
                   SizedBox(
                     height: ScreenHelper.giveheight(context, .02),
                   ),
-                  CustomTextFormField(label: "Email",onSaved: (value){_email=value;},),
+                  CustomTextFormField(label: "Email",onSaved: (value){_email=value.trim();},),
                   SizedBox(
                     height: ScreenHelper.giveheight(context, .02),
                   ),
                   CustomTextFormField(
                     label: "Password",
                     isPassword: true,
-                    onSaved: (value){_password=value;},
+                    onSaved: (value){_password=value.trim();},
                   ),
                   SizedBox(
                     height: ScreenHelper.giveheight(context, .1),
@@ -83,7 +87,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if(_globalKey.currentState.validate()){
                           _globalKey.currentState.save();
                           try {
-                            await _auth.signUp(_email, _password);
+                            UserCredential result=await _auth.signUp(_email, _password);
+                            UserModel user= UserModel(id: result.user.uid,name: _name,email: _email);
+                            _userOperations.addUser(user);
                             _isLoading(false);
                             Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                           }catch(e){

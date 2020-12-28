@@ -30,3 +30,8 @@ const LinearGradient kWomenCat=LinearGradient(
   end: Alignment.centerRight,
 );
 const kProductsCollectionName="FreelancerProducts";
+const kUserCollectionName="Users";
+const kOrderCollectionName="UsersOrders";
+const kCartCollectionName="UsersCart";
+const kCartListCollectionName="CartList";
+

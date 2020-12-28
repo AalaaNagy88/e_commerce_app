@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/providers/user_info_provider.dart';
+import 'package:e_commerce_app/services/user_operations.dart';
 import 'package:e_commerce_app/widgets/custom_screen_catogery.dart';
 import 'package:e_commerce_app/widgets/custom_search_bar.dart';
 import 'package:e_commerce_app/widgets/product_card.dart';
@@ -10,8 +12,21 @@ import 'cart_screen.dart';
 import 'local_widget/catogery_card.dart';
 import 'local_widget/home_titles.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static String routeName = "HomeScreen";
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  UserOperations _userOperations=UserOperations();
+
+  @override
+  void initState() {
+    super.initState();
+    _userOperations.loadAllCartItems(context,Provider.of<UserInfoProvider>(context, listen: false).user);
+  }
   @override
   Widget build(BuildContext context) {
     List<ProductModel> products=Provider.of<ProductItem>(context).productList;

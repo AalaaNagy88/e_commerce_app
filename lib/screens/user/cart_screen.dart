@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
-import 'package:e_commerce_app/models/product_model.dart';
+import 'package:e_commerce_app/models/cart_item_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    List<ProductModel> cart = Provider.of<CartProvider>(context).cart;
+    List<CartItemModel> cart = Provider.of<CartProvider>(context).cart;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

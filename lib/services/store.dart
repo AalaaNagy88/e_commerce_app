@@ -45,7 +45,6 @@ class Store{
         ProductModel product =
         ProductModel.fromJson(data.data(),data.id);
         Provider.of<ProductItem>(context,listen: false).addProduct(product);
-        print("Add");
       }
     });
   }

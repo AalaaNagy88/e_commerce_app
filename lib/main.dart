@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/providers/user_info_provider.dart';
 import 'package:e_commerce_app/screens/admin/add_new_product_screen.dart';
 import 'package:e_commerce_app/screens/admin/admin_panal_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_image_screen.dart';
@@ -28,6 +29,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<ImagePickerProvider>(
             create: (context) => ImagePickerProvider()),
+        ChangeNotifierProvider<UserInfoProvider>(
+            create: (context) => UserInfoProvider()),
         ChangeNotifierProvider<CartProvider>(
             create: (context) => CartProvider()),
         ChangeNotifierProvider<ProductItem>(create: (context) => ProductItem())
