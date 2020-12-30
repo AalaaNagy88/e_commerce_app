@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
 import 'package:e_commerce_app/screens/user/home_screen.dart';
@@ -24,9 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _globalKey=GlobalKey<FormState>();
 
   final _auth=Auth();
+  UserOperations _userOperations=UserOperations();
+
 
   String _email,_password;
-  UserOperations _userOperations=UserOperations();
 
   bool _loading=false;
 
@@ -92,12 +95,14 @@ class _LoginScreenState extends State<LoginScreen> {
                    try{
                      UserCredential result=await _auth.signIn(_email, _password);
                      _userOperations.getCurrentUserInfo(_email,context);
-                     _isLoading(false);
                      if(result.user.uid=="DaNtyvAV0TaESYJULzghyMyV83T2"){
+                       _isLoading(false);
                        Navigator.pushReplacementNamed(context, AdminPanalScreen.routeName);
                      }else{
-                       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-                     }
+                       Timer(const Duration(milliseconds: 2000), () {
+                         _isLoading(false);
+                         Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>HomeScreen()) );
+                       });                     }
                    }catch(e){
                      _isLoading(false);
                      Scaffold.of(context).showSnackBar(SnackBar(content: Text("${e.message}"),));

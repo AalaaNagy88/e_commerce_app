@@ -3,6 +3,8 @@ import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/cart_item_model.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/services/user_operations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,8 @@ class CartItem extends StatefulWidget {
 }
 
 class _CartItemState extends State<CartItem> {
+  UserOperations _userOperations=UserOperations();
+
   @override
   Widget build(BuildContext context) {
     return  Card(
@@ -41,11 +45,19 @@ class _CartItemState extends State<CartItem> {
                     children: [
                       Text(widget.item.name,style: Theme.of(context).textTheme.headline6,),
                       IconButton(onPressed: (){
+                        ProductModel currentproduct=ProductModel();
+                        for (ProductModel product
+                        in Provider.of<ProductItem>(context, listen: false).productList) {
+                          if (product.name== widget.item.name) {
+                            currentproduct.name=product.name;
+                            product.addedTocart = true;
+                          }
+                        }
                         setState(() {
-                          ProductModel product=ProductModel();
-                          product.id= widget.item.id;
-                          product.addedTocart=false;
+                          currentproduct.addedTocart=false;
                         });
+                        Provider.of<ProductItem>(context,listen: false).isInCart(currentproduct, false);
+                        _userOperations.removeCartItem(context, widget.item.id);
                         Provider.of<CartProvider>(context,listen: false).removeFromCart(widget.item);
                       },icon: Icon(Icons.close,color: Colors.grey[700],size: 30,),),
                     ],

@@ -2,6 +2,8 @@ import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/cart_item_model.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/services/user_operations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,15 +21,21 @@ class CustomFlatButton extends StatefulWidget {
 }
 
 class _CustomFlatButtonState extends State<CustomFlatButton> {
+  UserOperations _userOperations=UserOperations();
+
   @override
   void initState() {
     super.initState();
-    for (CartItemModel item
-        in Provider.of<CartProvider>(context, listen: false).cart) {
-      if (item.id == widget.product.id) {
-        widget.product.addedTocart = true;
-      }
-    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      int i=Provider.of<CartProvider>(context,listen: false).cart.indexWhere((element) => element.name==widget.product.name);
+      print(i.toString());
+      if(i>=0) {
+        Provider.of<ProductItem>(context, listen: false).isInCart(
+            widget.product, true);
+        setState(() {
+          widget.product.addedTocart = true;
+        });
+      }    });
   }
 
   @override
@@ -37,14 +45,14 @@ class _CustomFlatButtonState extends State<CustomFlatButton> {
           price: widget.product.price,
           name: widget.product.name,
           imageUrl: widget.product.imageUrl,
-          id: widget.product.id,
           size: "");
       Provider.of<CartProvider>(context, listen: false)
-          .addToCart(item, context);
-      print("added");
+          .addToCart(item);
+      _userOperations.addItemToCart(item,context);
       setState(() {
         widget.product.addedTocart = true;
       });
+      Provider.of<ProductItem>(context,listen: false).isInCart(widget.product, true);
     }
 
     return Container(

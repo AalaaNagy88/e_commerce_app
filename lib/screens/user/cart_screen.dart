@@ -56,6 +56,29 @@ class _CartScreenState extends State<CartScreen> {
                   .copyWith(color: Colors.black),
             ),
           ),
+//          StreamBuilder<QuerySnapshot>(
+//            stream: _userOperations.loadAllCartItems(context),
+//            builder: (context, s) {
+//              if (s.hasData) {
+//                List<QueryDocumentSnapshot> lisData = s.data.docs;
+//                return Flexible(
+//                  flex: 1,
+//                  child: ListView.builder(
+//                    itemCount: lisData.length,
+//                    itemBuilder: (context, i) {
+//                      CartItemModel item =
+//                          CartItemModel.fromJson(lisData[i].data());
+//                      return Padding(
+//                          padding: EdgeInsets.symmetric(
+//                              vertical: ScreenHelper.giveheight(context, .01)),
+//                          child: CartItem(item: item));
+//                    },
+//                  ),
+//                );
+//              } else
+//                return Text("Null");
+//            },
+//          ),
           cart.length == 0
               ? Center(
                   child: Text("Cart is empty"),

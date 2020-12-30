@@ -34,7 +34,6 @@ class UserOperations {
   }
 
   updateUserData(UserModel userModel) {
-    print(userModel.toJson());
     firebaseFirestore
         .collection(kUserCollectionName)
         .doc(userModel.id)
@@ -49,36 +48,60 @@ class UserOperations {
           firebaseFirestore.collection(kCartCollectionName).doc();
       Provider.of<UserInfoProvider>(context, listen: false).user.cartId =
           ref.id;
-      updateUserData(userModel);
-      ref.collection(kCartListCollectionName).add(cartItemModel.toJson());
+      ref
+          .collection(kCartListCollectionName)
+          .add(cartItemModel.toJson())
+          .then((value) {
+        updateUserData(userModel);
+        firebaseFirestore
+            .collection(kCartCollectionName)
+            .doc(userModel.cartId)
+            .collection(kCartListCollectionName)
+            .doc(value.id)
+            .update({"id": value.id});
+      });
     } else {
       firebaseFirestore
           .collection(kCartCollectionName)
           .doc(userModel.cartId)
           .collection(kCartListCollectionName)
-          .add(cartItemModel.toJson());
+          .add(cartItemModel.toJson())
+          .then((value) {
+        updateUserData(userModel);
+        firebaseFirestore
+            .collection(kCartCollectionName)
+            .doc(userModel.cartId)
+            .collection(kCartListCollectionName)
+            .doc(value.id)
+            .update({"id": value.id});
+      });
     }
   }
-  loadAllCartItems(context,userModel){
-    try {
-      firebaseFirestore
-          .collection(kCartCollectionName)
-          .doc(userModel.cartId)
-          .collection(kCartListCollectionName).snapshots().listen((event) {
-        Provider
-            .of<CartProvider>(context, listen: false)
-            .cart = [];
-        for (QueryDocumentSnapshot data in event.docs) {
-          CartItemModel item =
-          CartItemModel.fromJson(data.data());
-          Provider.of<CartProvider>(context, listen: false).addToCart(
-              item, context);
-        }
-      });
-    }catch(e){
-      Provider
-          .of<CartProvider>(context, listen: false)
-          .cart = [];
-    }
+
+  removeCartItem(context, String itemId) {
+    UserModel userModel =
+        Provider.of<UserInfoProvider>(context, listen: false).user;
+    firebaseFirestore
+        .collection(kCartCollectionName)
+        .doc(userModel.cartId)
+        .collection(kCartListCollectionName)
+        .doc(itemId)
+        .delete();
+  }
+
+  loadAllCartItems(context) {
+   UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
+    return firebaseFirestore
+        .collection(kCartCollectionName)
+        .doc(user.cartId)
+        .collection(kCartListCollectionName)
+        .snapshots()
+        .listen((event) {
+      Provider.of<CartProvider>(context, listen: false).cart=[];
+      for (QueryDocumentSnapshot data in event.docs) {
+        CartItemModel item = CartItemModel.fromJson(data.data());
+        Provider.of<CartProvider>(context, listen: false).addToCart(item);
+      }
+    });
   }
 }
