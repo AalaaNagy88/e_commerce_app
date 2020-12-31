@@ -1,6 +1,6 @@
-# e_commerce_app
+# Bolt Store
 
-A new Flutter application.
+A Flutter application for selling and buying clothes for women, men and kides. The application is consist of two parts. First, for admin operations like add, edit, delete products and check orders. Second, for consumer operation like view products, add products to cart and ask for orders
 
 ## Getting Started
 
