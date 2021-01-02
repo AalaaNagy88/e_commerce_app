@@ -107,7 +107,8 @@ class ProductDetialsForUser extends StatelessWidget {
             ),
             Divider(),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: ScreenHelper.giveheight(context, .01)),
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenHelper.giveheight(context, .01)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -145,14 +146,17 @@ class ProductDetialsForUser extends StatelessWidget {
             ),
             Divider(),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: ScreenHelper.giveheight(context, .01)),
-              child: Text("Description", style: Theme.of(context).textTheme.headline6),
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenHelper.giveheight(context, .01)),
+              child: Text("Description",
+                  style: Theme.of(context).textTheme.headline6),
             ),
             SizedBox(
               height: ScreenHelper.giveheight(context, .01),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: ScreenHelper.giveheight(context, .01)),
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenHelper.giveheight(context, .01)),
               child: Text(
                 product.description,
                 style: Theme.of(context)
@@ -163,29 +167,40 @@ class ProductDetialsForUser extends StatelessWidget {
             ),
             Divider(),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: ScreenHelper.giveheight(context, .01)),
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenHelper.giveheight(context, .01)),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center
-              ,children: [
-                Text(
-                  "Select Size",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5
-                      .copyWith(color: Colors.black),
-                ),
-              ],),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Select Size",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(color: Colors.black),
+                  ),
+                ],
+              ),
             ),
             Divider(),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: ScreenHelper.giveheight(context, .01)),
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenHelper.giveheight(context, .01)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                SizeCard(size: "S",),
-                SizeCard(size: "M",color: kMainColor,),
-                SizeCard(size: "L",),
-              ],),
+                  SizeCard(
+                    size: "S",
+                  ),
+                  SizeCard(
+                    size: "M",
+                    color: kMainColor,
+                  ),
+                  SizeCard(
+                    size: "L",
+                  ),
+                ],
+              ),
             )
           ],
         ),

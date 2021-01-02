@@ -37,6 +37,7 @@ dependencies:
   provider: ^4.3.2+2
   cloud_firestore: ^0.14.3
   get: ^3.24.0
+  dotted_border: ^1.0.7
 
 
 

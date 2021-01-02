@@ -10,7 +10,7 @@ class UserInfoProvider extends ChangeNotifier {
         name: userModel.name,
         cartId: userModel.cartId,
         id: userModel.id,
-        address: userModel.address,
+        address: userModel.address == null ? [] : userModel.address,
         orderId: userModel.orderId,
         phone: userModel.phone);
     notifyListeners();

@@ -33,11 +33,23 @@ class UserOperations {
     });
   }
 
-  updateUserData(UserModel userModel) {
+  updateUserData(context) {
+    UserModel userModel =
+        Provider.of<UserInfoProvider>(context, listen: false).user;
     firebaseFirestore
         .collection(kUserCollectionName)
         .doc(userModel.id)
         .update(userModel.toJson());
+  }
+
+  updateItemCartQuantity(context, String itemid, int value) {
+    UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
+    firebaseFirestore
+        .collection(kCartCollectionName)
+        .doc(user.cartId)
+        .collection(kCartListCollectionName)
+        .doc(itemid)
+        .update({"quantity": value});
   }
 
   addItemToCart(CartItemModel cartItemModel, context) {
@@ -52,7 +64,7 @@ class UserOperations {
           .collection(kCartListCollectionName)
           .add(cartItemModel.toJson())
           .then((value) {
-        updateUserData(userModel);
+        updateUserData(context);
         firebaseFirestore
             .collection(kCartCollectionName)
             .doc(userModel.cartId)
@@ -67,7 +79,7 @@ class UserOperations {
           .collection(kCartListCollectionName)
           .add(cartItemModel.toJson())
           .then((value) {
-        updateUserData(userModel);
+        updateUserData(context);
         firebaseFirestore
             .collection(kCartCollectionName)
             .doc(userModel.cartId)
@@ -90,14 +102,14 @@ class UserOperations {
   }
 
   loadAllCartItems(context) {
-   UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
+    UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
     return firebaseFirestore
         .collection(kCartCollectionName)
         .doc(user.cartId)
         .collection(kCartListCollectionName)
         .snapshots()
         .listen((event) {
-      Provider.of<CartProvider>(context, listen: false).cart=[];
+      Provider.of<CartProvider>(context, listen: false).cart = [];
       for (QueryDocumentSnapshot data in event.docs) {
         CartItemModel item = CartItemModel.fromJson(data.data());
         Provider.of<CartProvider>(context, listen: false).addToCart(item);

@@ -1,10 +1,12 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/cart_item_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'all_addresses_screen.dart';
 import 'local_widget/cart_item.dart';
 
 class CartScreen extends StatefulWidget {
@@ -96,6 +98,28 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Container(
+          height: ScreenHelper.giveheight(context, .07),
+          color: Colors.transparent,
+          child: CustomButton(
+            onPressed: () => cart.length != 0
+                ? Navigator.pushNamed(context, AllAdressesScreen.routeName)
+                : showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                            content:
+                                Text("Please, Add items to cart to continue"),
+                            actions: [
+                              TextButton(
+                                  child: Text("Okay"),
+                                  onPressed: () => Navigator.pop(context)),
+                            ])),
+            title: "Countinue",
+          ),
+        ),
       ),
     );
   }

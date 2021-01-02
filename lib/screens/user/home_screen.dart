@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import 'cart_screen.dart';
 import 'local_widget/catogery_card.dart';
+import 'local_widget/drawer_details.dart';
 import 'local_widget/home_titles.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        drawer: Drawer(),
+        drawer: DrawerDetials(),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(

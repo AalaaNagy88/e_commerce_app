@@ -7,7 +7,10 @@ import 'package:e_commerce_app/screens/admin/edit_product_image_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_info_screen.dart';
 import 'package:e_commerce_app/screens/login_screen.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
+import 'package:e_commerce_app/screens/user/add_address_screen.dart';
+import 'package:e_commerce_app/screens/user/all_addresses_screen.dart';
 import 'package:e_commerce_app/screens/user/cart_screen.dart';
+import 'package:e_commerce_app/screens/user/check_out_screen.dart';
 import 'package:e_commerce_app/screens/user/home_screen.dart';
 import 'package:e_commerce_app/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,7 +55,10 @@ class MyApp extends StatelessWidget {
             EditProductImageScreen.routeName: (context) =>
                 EditProductImageScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
-      CartScreen.routeName:(context)=>CartScreen()
+            CartScreen.routeName: (context) => CartScreen(),
+            AddAdressScreen.routeName: (context) => AddAdressScreen(),
+            AllAdressesScreen.routeName: (context) => AllAdressesScreen(),
+            CheckOutScreen.routeName: (context) => CheckOutScreen()
           }),
     );
   }
