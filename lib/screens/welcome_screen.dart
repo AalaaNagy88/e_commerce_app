@@ -2,6 +2,7 @@ import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'login_screen.dart';
 
@@ -13,11 +14,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  @override
-  initState() {
-    super.initState();
-  }
-
+  String _selectedLanguage = "en";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +29,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Welcome to ",
+                  "welcom".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headline5
                       .copyWith(color: Colors.grey[800]),
                 ),
                 Text(
-                  "Bolt",
+                  "bolt".tr,
                   style: Theme.of(context)
                       .textTheme
                       .headline4
@@ -48,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
             Text(
-              "Explore Us",
+              "explore".tr,
               style: Theme.of(context)
                   .textTheme
                   .headline5
@@ -59,11 +56,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             Image.asset("assets/images/welcome.png"),
             SizedBox(
-              height: ScreenHelper.giveheight(context, .2),
+              height: ScreenHelper.giveheight(context, .1),
+            ),
+            DropdownButton(
+              items: [
+                DropdownMenuItem(
+                  child: Text("English"),
+                  value: "en",
+                ),
+                DropdownMenuItem(
+                  child: Text("العربية"),
+                  value: "ar",
+                )
+              ],
+              value: _selectedLanguage,
+              onChanged: (value) {
+                setState(() {
+                  _selectedLanguage = value;
+                });
+                Get.updateLocale(Locale(_selectedLanguage));
+              },
             ),
             CustomButton(
               onPressed: () => Navigator.pushReplacementNamed(
                   context, LoginScreen.routeName),
+              title: "login".tr,
             ),
             SizedBox(
               height: ScreenHelper.giveheight(context, .02),
@@ -73,7 +90,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     context, SignUpScreen.routeName),
                 child: Center(
                     child: Text(
-                  "Signup",
+                  "signup".tr,
                   style: Theme.of(context).textTheme.headline5,
                 ))),
           ],

@@ -98,12 +98,14 @@ class _ProductDetialsScreenState extends State<ProductDetialsScreen> {
                       .headline3
                       .copyWith(color: Colors.black),
                 ),
-                EditButton(widget: widget, onPressed: ()=>  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EditProductInfoScreen(
-                          product: widget.product,
-                        ))))
+                EditButton(
+                    widget: widget,
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditProductInfoScreen(
+                                  product: widget.product,
+                                ))))
               ],
             ),
             SizedBox(
@@ -137,4 +139,3 @@ class _ProductDetialsScreenState extends State<ProductDetialsScreen> {
     );
   }
 }
-

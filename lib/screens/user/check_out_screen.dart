@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'confirm_screen.dart';
 import 'local_widget/cart_item.dart';
 import 'local_widget/row_widget_of_checkout.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 // ignore: must_be_immutable
 class CheckOutScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class CheckOutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     cart = Provider.of<CartProvider>(context).cart;
     return DefaultScreen(
-      title: "Checkout",
+      title: "Checkout".tr,
       children: [
         Expanded(
           child: ListView.builder(
@@ -54,20 +55,20 @@ class CheckOutScreen extends StatelessWidget {
         ),
         Divider(),
         RowWidgetOfCheckout(
-          title: "Subtotal",
+          title: "Subtotal".tr,
           value: "\$ ${_subTotalPrices()}",
         ),
         RowWidgetOfCheckout(
-          title: "Discount",
+          title: "Discount".tr,
           value: "5%",
         ),
         RowWidgetOfCheckout(
-          title: "Shipping",
+          title: "Shipping".tr,
           value: "\$10",
         ),
         Divider(),
         ListTile(
-          title: Text("Total"),
+          title: Text("total".tr),
           trailing: Text("\$ ${_totalPrices()}"),
         ),
         Padding(
@@ -91,7 +92,7 @@ class CheckOutScreen extends StatelessWidget {
                 // print(e);
               }
             },
-            title: "Order Now",
+            title: "ordernow".tr,
           ),
         )
       ],

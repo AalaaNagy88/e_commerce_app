@@ -7,6 +7,7 @@ import 'package:e_commerce_app/widgets/default_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'local_widget/cart_item.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 // ignore: must_be_immutable
 class OrderScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultScreen(
-      title: "Orders",
+      title: "orders".tr,
       children: [
         StreamBuilder<DocumentSnapshot>(
           stream: _userOperations.laodCurrentUserOrder(context),
@@ -45,7 +46,7 @@ class OrderScreen extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      title: Text("Total"),
+                      title: Text("total".tr),
                       trailing: Text("\$ ${order.total}"),
                     ),
                   ],

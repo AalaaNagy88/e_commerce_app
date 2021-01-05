@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 // ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
@@ -30,7 +31,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           horizontal: ScreenHelper.givewidth(context, .05)),
       child: TextFormField(
         validator: (value) => value.isEmpty
-            ? "Please, Enter vaild ${widget.label.toLowerCase()}"
+            ? "ensureVaild".tr + " ${widget.label.toLowerCase()}"
             : null,
         initialValue: widget.initialValue,
         keyboardType:

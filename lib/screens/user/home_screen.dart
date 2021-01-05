@@ -11,6 +11,7 @@ import 'cart_screen.dart';
 import 'local_widget/catogery_card.dart';
 import 'local_widget/drawer_details.dart';
 import 'local_widget/home_titles.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "HomeScreen";
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 10,
               ),
-              HomeTitles(name: "Categories"),
+              HomeTitles(name: "categories".tr),
               Container(
                 height: 100,
                 child: ListView(
@@ -76,41 +77,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     CatogeryCard(
                       color: kWomenCat,
-                      name: "women",
+                      imageName: "Women",
+                      name: "women".tr,
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => CustomScreenCatogery(
-                                    title: "Women Items",
+                                    title: "womenItems".tr,
                                     catogeryName: "Women",
                                   ))),
                     ),
                     CatogeryCard(
                       color: kMenCat,
-                      name: "men",
+                      imageName: "Men",
+                      name: "men".tr,
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => CustomScreenCatogery(
-                                    title: "Men Items",
+                                    title: "menItems".tr,
                                     catogeryName: "Men",
                                   ))),
                     ),
                     CatogeryCard(
                       color: kKidsCat,
-                      name: "kids",
+                      imageName: "Kids",
+                      name: "kids".tr,
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => CustomScreenCatogery(
-                                    title: "Kids Items",
+                                    title: "kidsItems".tr,
                                     catogeryName: "Kids",
                                   ))),
                     ),
                   ],
                 ),
               ),
-              HomeTitles(name: "Featured"),
+              HomeTitles(name: "featured".tr),
               Container(
                   height: 260,
                   child: products != null
@@ -129,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         )
                       : Center(child: CircularProgressIndicator())),
-              HomeTitles(name: "Best Sell"),
+              HomeTitles(name: "bestsell".tr),
               Container(
                   height: 260,
                   child: products != null

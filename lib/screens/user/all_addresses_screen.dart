@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class AllAdressesScreen extends StatefulWidget {
   static String routeName = "AllAdressesScreen";
@@ -25,9 +26,9 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserInfoProvider>(context).user;
     return DefaultScreen(
-      title: "Address",
+      title: "Address".tr,
       children: user.address.length == 0
-          ? [Center(child: Text("No, addresses addded")), _screenButtons()]
+          ? [Center(child: Text("emptyAddress".tr)), Spacer(), _screenButtons()]
           : [
               Container(
                 height: ScreenHelper.givewidth(context, 1.1),
@@ -69,7 +70,7 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
                   onTap: () => Navigator.pushReplacementNamed(
                       context, AddAdressScreen.routeName),
                   title: Text(
-                    "Add Address",
+                    "addAddress".tr,
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -84,7 +85,7 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
           height: ScreenHelper.giveheight(context, .03),
         ),
         CustomButton(
-          title: "Checkout",
+          title: "Checkout".tr,
           onPressed: () => _groupValue != ""
               ? Navigator.pushReplacement(
                   context,
@@ -95,11 +96,10 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
               : showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          content: Text(
-                              "Please, select your current addres to continue"),
+                          content: Text("selectAdressMesg".tr),
                           actions: [
                             TextButton(
-                                child: Text("Okay"),
+                                child: Text("okay".tr),
                                 onPressed: () => Navigator.pop(context)),
                           ])),
         )

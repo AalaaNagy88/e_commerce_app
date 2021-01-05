@@ -10,6 +10,7 @@ import 'package:e_commerce_app/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import 'admin/admin_panal_screen.dart';
 
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.symmetric(
                   horizontal: ScreenHelper.givewidth(context, .05)),
               child: Text(
-                "Login",
+                "login".tr,
                 style: Theme.of(context)
                     .textTheme
                     .headline4
@@ -71,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: ScreenHelper.giveheight(context, .08),
             ),
             CustomTextFormField(
-              label: "Email",
+              label: "email".tr,
               onSaved: (value) {
                 _email = value.trim();
               },
@@ -80,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: ScreenHelper.giveheight(context, .02),
             ),
             CustomTextFormField(
-              label: "Password",
+              label: "password".tr,
               isPassword: true,
               onSaved: (value) {
                 _password = value.trim();
@@ -91,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Builder(
               builder: (context) => CustomButton(
+                title: "login".tr,
                 onPressed: () async {
                   _isLoading(true);
                   if (_globalKey.currentState.validate()) {
@@ -126,12 +128,12 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Don\'t have an ancount ?",
+                  "haven't account".tr,
                   style: TextStyle(color: Colors.grey),
                 ),
                 TextButton(
                   child: Text(
-                    "Sign Up",
+                    "signup".tr,
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   onPressed: () {

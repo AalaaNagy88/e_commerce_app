@@ -6,11 +6,21 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 import 'local_widget/card_size.dart';
 import 'local_widget/custom_flat_button.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
-class ProductDetialsForUser extends StatelessWidget {
+class ProductDetialsForUser extends StatefulWidget {
   final ProductModel product;
 
-  const ProductDetialsForUser({Key key, this.product}) : super(key: key);
+  ProductDetialsForUser({Key key, this.product}) : super(key: key);
+
+  @override
+  _ProductDetialsForUserState createState() => _ProductDetialsForUserState();
+}
+
+class _ProductDetialsForUserState extends State<ProductDetialsForUser> {
+  List<String> sizes = ["S", "M", "L", "XL", "XXL"];
+
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +63,7 @@ class ProductDetialsForUser extends StatelessWidget {
             SizedBox(
               height: ScreenHelper.giveheight(context, .02),
             ),
-            Center(child: Image.network(product.imageUrl)),
+            Center(child: Image.network(widget.product.imageUrl)),
             SizedBox(
               height: ScreenHelper.giveheight(context, .01),
             ),
@@ -65,7 +75,7 @@ class ProductDetialsForUser extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    product.name,
+                    widget.product.name,
                     style: Theme.of(context)
                         .textTheme
                         .headline4
@@ -83,7 +93,7 @@ class ProductDetialsForUser extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    product.price + "\$",
+                    widget.product.price + "\$",
                     style: Theme.of(context)
                         .textTheme
                         .headline6
@@ -128,14 +138,14 @@ class ProductDetialsForUser extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                   ),
                   Text(
-                    "Very Good",
+                    "veryGood".tr,
                     style: Theme.of(context)
                         .textTheme
                         .headline5
                         .copyWith(color: Colors.black),
                   ),
                   Text(
-                    "49 Reviews",
+                    "49" + "reviews".tr,
                     style: Theme.of(context)
                         .textTheme
                         .headline6
@@ -148,7 +158,7 @@ class ProductDetialsForUser extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                   vertical: ScreenHelper.giveheight(context, .01)),
-              child: Text("Description",
+              child: Text("description".tr,
                   style: Theme.of(context).textTheme.headline6),
             ),
             SizedBox(
@@ -158,7 +168,7 @@ class ProductDetialsForUser extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   vertical: ScreenHelper.giveheight(context, .01)),
               child: Text(
-                product.description,
+                widget.product.description,
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1
@@ -173,7 +183,7 @@ class ProductDetialsForUser extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Select Size",
+                    "selectSize".tr,
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -186,27 +196,47 @@ class ProductDetialsForUser extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                   vertical: ScreenHelper.giveheight(context, .01)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizeCard(
-                    size: "S",
-                  ),
-                  SizeCard(
-                    size: "M",
-                    color: kMainColor,
-                  ),
-                  SizeCard(
-                    size: "L",
-                  ),
-                ],
+              child: Center(
+                child: Container(
+                    height: 80,
+                    child: ListView.builder(
+                      itemCount: sizes.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, i) {
+                        return InkWell(
+                            onTap: () => setState(() {
+                                  selectedIndex = i;
+                                }),
+                            child: SizeCard(
+                              size: sizes[i],
+                              color: selectedIndex == i
+                                  ? kMainColor
+                                  : Color(0xFFF3F3F3),
+                            ));
+                      },
+                    )),
               ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   children: [
+              //     SizeCard(
+              //       size: "S",
+              //     ),
+              //     SizeCard(
+              //       size: "M",
+              //       color: kMainColor,
+              //     ),
+              //     SizeCard(
+              //       size: "L",
+              //     ),
+              //   ],
+              // ),
             )
           ],
         ),
       ),
       bottomNavigationBar: CustomFlatButton(
-        product: product,
+        product: widget.product,
       ),
     );
   }

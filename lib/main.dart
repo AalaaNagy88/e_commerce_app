@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Utils/translation_class.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
 import 'package:e_commerce_app/providers/product_item_provider.dart';
 import 'package:e_commerce_app/providers/user_info_provider.dart';
@@ -18,6 +19,7 @@ import 'package:e_commerce_app/screens/welcome_screen.dart';
 import 'package:e_commerce_app/services/store.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'constants.dart';
 import 'providers/image_picker_provider.dart';
@@ -44,30 +46,33 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<CartProvider>.value(value: CartProvider()),
         ChangeNotifierProvider<ProductItem>.value(value: ProductItem()),
       ],
-      child: MaterialApp(
-          title: 'Bolt',
-          theme: ThemeData(
-            primaryColor: kMainColor,
-          ),
-          initialRoute: WelcomeScreen.routeName,
-          routes: {
-            WelcomeScreen.routeName: (context) => WelcomeScreen(),
-            LoginScreen.routeName: (context) => LoginScreen(),
-            SignUpScreen.routeName: (context) => SignUpScreen(),
-            AdminPanalScreen.routeName: (context) => AdminPanalScreen(),
-            AddNewProductScreen.routeName: (context) => AddNewProductScreen(),
-            EditProductInfoScreen.routeName: (context) =>
-                EditProductInfoScreen(),
-            EditProductImageScreen.routeName: (context) =>
-                EditProductImageScreen(),
-            HomeScreen.routeName: (context) => HomeScreen(),
-            CartScreen.routeName: (context) => CartScreen(),
-            AddAdressScreen.routeName: (context) => AddAdressScreen(),
-            AllAdressesScreen.routeName: (context) => AllAdressesScreen(),
-            CheckOutScreen.routeName: (context) => CheckOutScreen(),
-            ConfirmScreen.routeName: (context) => ConfirmScreen(),
-            OrderScreen.routeName: (context) => OrderScreen()
-          }),
+      child: GetMaterialApp(
+        title: 'Bolt',
+        theme: ThemeData(
+          primaryColor: kMainColor,
+        ),
+        initialRoute: WelcomeScreen.routeName,
+        routes: {
+          WelcomeScreen.routeName: (context) => WelcomeScreen(),
+          LoginScreen.routeName: (context) => LoginScreen(),
+          SignUpScreen.routeName: (context) => SignUpScreen(),
+          AdminPanalScreen.routeName: (context) => AdminPanalScreen(),
+          AddNewProductScreen.routeName: (context) => AddNewProductScreen(),
+          EditProductInfoScreen.routeName: (context) => EditProductInfoScreen(),
+          EditProductImageScreen.routeName: (context) =>
+              EditProductImageScreen(),
+          HomeScreen.routeName: (context) => HomeScreen(),
+          CartScreen.routeName: (context) => CartScreen(),
+          AddAdressScreen.routeName: (context) => AddAdressScreen(),
+          AllAdressesScreen.routeName: (context) => AllAdressesScreen(),
+          CheckOutScreen.routeName: (context) => CheckOutScreen(),
+          ConfirmScreen.routeName: (context) => ConfirmScreen(),
+          OrderScreen.routeName: (context) => OrderScreen()
+        },
+        translations: TranslationClass(),
+        locale: Locale("en"),
+        fallbackLocale: Locale("en"),
+      ),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'all_addresses_screen.dart';
 import 'local_widget/cart_item.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class CartScreen extends StatefulWidget {
   static String routeName = "CartScreen";
@@ -51,7 +52,7 @@ class _CartScreenState extends State<CartScreen> {
             padding: EdgeInsets.symmetric(
                 horizontal: ScreenHelper.givewidth(context, .05)),
             child: Text(
-              "Cart",
+              "cart".tr,
               style: Theme.of(context)
                   .textTheme
                   .headline4
@@ -60,7 +61,11 @@ class _CartScreenState extends State<CartScreen> {
           ),
           cart.length == 0
               ? Center(
-                  child: Text("Cart is empty"),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenHelper.giveheight(context, .3)),
+                    child: Text("emptyCart".tr),
+                  ),
                 )
               : Flexible(
                   flex: 1,
@@ -87,14 +92,13 @@ class _CartScreenState extends State<CartScreen> {
                 : showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                            content:
-                                Text("Please, Add items to cart to continue"),
+                            content: Text("ensureNonEmptyMesg".tr),
                             actions: [
                               TextButton(
-                                  child: Text("Okay"),
+                                  child: Text("okay".tr),
                                   onPressed: () => Navigator.pop(context)),
                             ])),
-            title: "Countinue",
+            title: "Countinue".tr,
           ),
         ),
       ),

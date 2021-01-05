@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class CustomFlatButton extends StatefulWidget {
   final ProductModel product;
@@ -75,9 +76,7 @@ class _CustomFlatButtonState extends State<CustomFlatButton> {
         onPressed: () => widget.product.addedTocart ? null : _pressed(context),
         child: Center(
           child: Text(
-            widget.product.addedTocart
-                ? "Added To Cart".toUpperCase()
-                : "Add To Cart".toUpperCase(),
+            widget.product.addedTocart ? "addedToCart".tr : "addToCart".tr,
             style: Theme.of(context)
                 .textTheme
                 .headline5

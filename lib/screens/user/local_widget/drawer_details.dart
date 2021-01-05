@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../order_screen.dart';
 
@@ -32,20 +33,20 @@ class DrawerDetials extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.shopping_bag),
-            title: Text("orders"),
+            title: Text("orders".tr),
             onTap: () => Navigator.pushNamed(context, OrderScreen.routeName),
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text("Help"),
+            title: Text("help".tr),
           ),
           ListTile(
             leading: Icon(Icons.help),
-            title: Text("About"),
+            title: Text("about".tr),
           ),
           ListTile(
             leading: Icon(Icons.logout),
-            title: Text("Log out"),
+            title: Text("logout".tr),
           ),
         ],
       ),

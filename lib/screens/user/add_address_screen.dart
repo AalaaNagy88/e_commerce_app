@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'all_addresses_screen.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 // ignore: must_be_immutable
 class AddAdressScreen extends StatelessWidget {
@@ -41,7 +42,7 @@ class AddAdressScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: ScreenHelper.givewidth(context, .05)),
               child: Text(
-                "Add Address",
+                "addAddress".tr,
                 style: Theme.of(context)
                     .textTheme
                     .headline4
@@ -52,7 +53,7 @@ class AddAdressScreen extends StatelessWidget {
               height: ScreenHelper.giveheight(context, .02),
             ),
             CustomTextFormField(
-              label: "Adress Lane",
+              label: "adressLane".tr,
               onSaved: (value) {
                 _addressLane = value;
               },
@@ -61,7 +62,7 @@ class AddAdressScreen extends StatelessWidget {
               height: ScreenHelper.giveheight(context, .02),
             ),
             CustomTextFormField(
-              label: "City",
+              label: "city".tr,
               onSaved: (value) {
                 _city = value;
               },
@@ -70,7 +71,7 @@ class AddAdressScreen extends StatelessWidget {
               height: ScreenHelper.giveheight(context, .02),
             ),
             CustomTextFormField(
-              label: "Postal Code",
+              label: "postalCode".tr,
               isNumbersOnly: true,
               onSaved: (value) {
                 _postalCode = value.trim();
@@ -80,7 +81,7 @@ class AddAdressScreen extends StatelessWidget {
               height: ScreenHelper.giveheight(context, .02),
             ),
             CustomTextFormField(
-              label: "Phone Number",
+              label: "phoneNumber".tr,
               isNumbersOnly: true,
               onSaved: (value) {
                 _phoneNumber = value.trim();
@@ -91,7 +92,7 @@ class AddAdressScreen extends StatelessWidget {
             ),
             Builder(
               builder: (context) => CustomButton(
-                title: "Add Address",
+                title: "addAddress".tr,
                 onPressed: () async {
                   if (_globalKey.currentState.validate()) {
                     _globalKey.currentState.save();
