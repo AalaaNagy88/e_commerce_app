@@ -2,6 +2,8 @@ import 'package:e_commerce_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../order_screen.dart';
+
 class DrawerDetials extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class DrawerDetials extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.shopping_bag),
             title: Text("orders"),
+            onTap: () => Navigator.pushNamed(context, OrderScreen.routeName),
           ),
           ListTile(
             leading: Icon(Icons.settings),

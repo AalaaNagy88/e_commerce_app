@@ -11,8 +11,11 @@ import 'package:e_commerce_app/screens/user/add_address_screen.dart';
 import 'package:e_commerce_app/screens/user/all_addresses_screen.dart';
 import 'package:e_commerce_app/screens/user/cart_screen.dart';
 import 'package:e_commerce_app/screens/user/check_out_screen.dart';
+import 'package:e_commerce_app/screens/user/confirm_screen.dart';
 import 'package:e_commerce_app/screens/user/home_screen.dart';
+import 'package:e_commerce_app/screens/user/order_screen.dart';
 import 'package:e_commerce_app/screens/welcome_screen.dart';
+import 'package:e_commerce_app/services/store.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,15 +31,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Store _store = Store();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ImagePickerProvider>(
-            create: (context) => ImagePickerProvider()),
-        ChangeNotifierProvider<UserInfoProvider>(
-            create: (context) => UserInfoProvider()),
-        ChangeNotifierProvider<CartProvider>(
-            create: (context) => CartProvider()),
-        ChangeNotifierProvider<ProductItem>(create: (context) => ProductItem())
+        StreamProvider.value(
+          value: _store.loadAllProducts(),
+        ),
+        ChangeNotifierProvider<ImagePickerProvider>.value(
+            value: ImagePickerProvider()),
+        ChangeNotifierProvider<UserInfoProvider>.value(
+            value: UserInfoProvider()),
+        ChangeNotifierProvider<CartProvider>.value(value: CartProvider()),
+        ChangeNotifierProvider<ProductItem>.value(value: ProductItem()),
       ],
       child: MaterialApp(
           title: 'Bolt',
@@ -58,7 +64,9 @@ class MyApp extends StatelessWidget {
             CartScreen.routeName: (context) => CartScreen(),
             AddAdressScreen.routeName: (context) => AddAdressScreen(),
             AllAdressesScreen.routeName: (context) => AllAdressesScreen(),
-            CheckOutScreen.routeName: (context) => CheckOutScreen()
+            CheckOutScreen.routeName: (context) => CheckOutScreen(),
+            ConfirmScreen.routeName: (context) => ConfirmScreen(),
+            OrderScreen.routeName: (context) => OrderScreen()
           }),
     );
   }

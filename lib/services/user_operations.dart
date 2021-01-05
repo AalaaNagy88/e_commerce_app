@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/models/cart_item_model.dart';
+import 'package:e_commerce_app/models/order_model.dart';
+import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/models/user_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/providers/product_item_provider.dart';
 import 'package:e_commerce_app/providers/user_info_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-class UserOperations {
+class UserOperations with ChangeNotifier {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-
+  //user basic info operation
   addUser(UserModel user) {
     firebaseFirestore.collection(kUserCollectionName).add(user.toJson()).then(
         (value) => firebaseFirestore
@@ -42,6 +46,7 @@ class UserOperations {
         .update(userModel.toJson());
   }
 
+//user cart operation
   updateItemCartQuantity(context, String itemid, int value) {
     UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
     firebaseFirestore
@@ -51,6 +56,39 @@ class UserOperations {
         .doc(itemid)
         .update({"quantity": value});
   }
+
+  loadAllCartItems(context) {
+    UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
+    if (user.cartId != "") {
+      return firebaseFirestore
+          .collection(kCartCollectionName)
+          .doc(user.cartId)
+          .collection(kCartListCollectionName)
+          .snapshots()
+          .listen((event) {
+        Provider.of<CartProvider>(context, listen: false).cart = [];
+        for (QueryDocumentSnapshot data in event.docs) {
+          CartItemModel item = CartItemModel.fromJson(data.data());
+          Provider.of<CartProvider>(context, listen: false).addToCart(item);
+        }
+      });
+    }
+  }
+
+  // Stream<List<CartItemModel>> loadAllCartItemss(context) {
+  //   UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
+  //   if (user.cartId != "") {
+  //     return firebaseFirestore
+  //         .collection(kCartCollectionName)
+  //         .doc(user.cartId)
+  //         .collection(kCartListCollectionName)
+  //         .snapshots()
+  //         .map((snapShot) => snapShot.docs
+  //             .map((document) => CartItemModel.fromJson(document.data()))
+  //             .toList());
+  //   }
+  //   return null;
+  // }
 
   addItemToCart(CartItemModel cartItemModel, context) {
     UserModel userModel =
@@ -101,18 +139,48 @@ class UserOperations {
         .delete();
   }
 
-  loadAllCartItems(context) {
-    UserModel user = Provider.of<UserInfoProvider>(context, listen: false).user;
+  //user order operations
+  addNewOrder(context, OrderModel order) {
+    UserModel userModel =
+        Provider.of<UserInfoProvider>(context, listen: false).user;
+    firebaseFirestore.collection(kOrderCollectionName).add(order.toJson()).then(
+        (value) => firebaseFirestore
+            .collection(kUserCollectionName)
+            .doc(userModel.id)
+            .update({"OrderId": value.id}));
+  }
+
+  Stream<DocumentSnapshot> laodCurrentUserOrder(context) {
+    UserModel userModel =
+        Provider.of<UserInfoProvider>(context, listen: false).user;
     return firebaseFirestore
+        .collection(kOrderCollectionName)
+        .doc(userModel.orderId)
+        .snapshots();
+  }
+
+  truncateCartAfterOrder(context) {
+    UserModel userModel =
+        Provider.of<UserInfoProvider>(context, listen: false).user;
+    firebaseFirestore
         .collection(kCartCollectionName)
-        .doc(user.cartId)
+        .doc(userModel.cartId)
         .collection(kCartListCollectionName)
         .snapshots()
         .listen((event) {
-      Provider.of<CartProvider>(context, listen: false).cart = [];
       for (QueryDocumentSnapshot data in event.docs) {
         CartItemModel item = CartItemModel.fromJson(data.data());
-        Provider.of<CartProvider>(context, listen: false).addToCart(item);
+        Provider.of<CartProvider>(context, listen: false).removeFromCart(item);
+        ProductModel currentproduct = ProductModel();
+        for (ProductModel product
+            in Provider.of<ProductItem>(context, listen: false).productList) {
+          if (product.name == item.name) {
+            currentproduct.name = product.name;
+            product.addedTocart = false;
+          }
+        }
+        removeCartItem(context, item.id);
+        print(Provider.of<CartProvider>(context, listen: false).cart.length);
       }
     });
   }

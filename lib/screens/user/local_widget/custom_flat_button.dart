@@ -21,21 +21,23 @@ class CustomFlatButton extends StatefulWidget {
 }
 
 class _CustomFlatButtonState extends State<CustomFlatButton> {
-  UserOperations _userOperations=UserOperations();
+  UserOperations _userOperations = UserOperations();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      int i=Provider.of<CartProvider>(context,listen: false).cart.indexWhere((element) => element.name==widget.product.name);
-      print(i.toString());
-      if(i>=0) {
-        Provider.of<ProductItem>(context, listen: false).isInCart(
-            widget.product, true);
+      int i = Provider.of<CartProvider>(context, listen: false)
+          .cart
+          .indexWhere((element) => element.name == widget.product.name);
+      if (i >= 0) {
+        Provider.of<ProductItem>(context, listen: false)
+            .isInCart(widget.product, true);
         setState(() {
           widget.product.addedTocart = true;
         });
-      }    });
+      }
+    });
   }
 
   @override
@@ -46,13 +48,19 @@ class _CustomFlatButtonState extends State<CustomFlatButton> {
           name: widget.product.name,
           imageUrl: widget.product.imageUrl,
           size: "");
-      Provider.of<CartProvider>(context, listen: false)
-          .addToCart(item);
-      _userOperations.addItemToCart(item,context);
-      setState(() {
-        widget.product.addedTocart = true;
-      });
-      Provider.of<ProductItem>(context,listen: false).isInCart(widget.product, true);
+      try {
+        _userOperations.addItemToCart(item, context);
+        Provider.of<CartProvider>(context, listen: false).addToCart(item);
+        setState(() {
+          widget.product.addedTocart = true;
+        });
+        Provider.of<ProductItem>(context, listen: false)
+            .isInCart(widget.product, true);
+      } catch (e) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("${e.message}"),
+        ));
+      }
     }
 
     return Container(

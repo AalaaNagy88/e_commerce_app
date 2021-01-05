@@ -10,8 +10,12 @@ import 'package:provider/provider.dart';
 
 class CartItem extends StatefulWidget {
   final CartItemModel item;
+  final bool canBeCanceled;
+  final bool orderded;
 
-  const CartItem({Key key, this.item}) : super(key: key);
+  const CartItem(
+      {Key key, this.item, this.canBeCanceled = true, this.orderded = false})
+      : super(key: key);
 
   @override
   _CartItemState createState() => _CartItemState();
@@ -19,7 +23,6 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
   UserOperations _userOperations = UserOperations();
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -49,34 +52,36 @@ class _CartItemState extends State<CartItem> {
                         widget.item.name,
                         style: Theme.of(context).textTheme.headline6,
                       ),
-                      IconButton(
-                        onPressed: () {
-                          ProductModel currentproduct = ProductModel();
-                          for (ProductModel product in Provider.of<ProductItem>(
-                                  context,
-                                  listen: false)
-                              .productList) {
-                            if (product.name == widget.item.name) {
-                              currentproduct.name = product.name;
-                              product.addedTocart = true;
+                      if (widget.canBeCanceled) ...[
+                        IconButton(
+                          onPressed: () {
+                            ProductModel currentproduct = ProductModel();
+                            for (ProductModel product
+                                in Provider.of<ProductItem>(context,
+                                        listen: false)
+                                    .productList) {
+                              if (product.name == widget.item.name) {
+                                currentproduct.name = product.name;
+                                product.addedTocart = true;
+                              }
                             }
-                          }
-                          setState(() {
-                            currentproduct.addedTocart = false;
-                          });
-                          Provider.of<ProductItem>(context, listen: false)
-                              .isInCart(currentproduct, false);
-                          _userOperations.removeCartItem(
-                              context, widget.item.id);
-                          Provider.of<CartProvider>(context, listen: false)
-                              .removeFromCart(widget.item);
-                        },
-                        icon: Icon(
-                          Icons.close,
-                          color: Colors.grey[700],
-                          size: 30,
+                            setState(() {
+                              currentproduct.addedTocart = false;
+                            });
+                            Provider.of<ProductItem>(context, listen: false)
+                                .isInCart(currentproduct, false);
+                            _userOperations.removeCartItem(
+                                context, widget.item.id);
+                            Provider.of<CartProvider>(context, listen: false)
+                                .removeFromCart(widget.item);
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.grey[700],
+                            size: 30,
+                          ),
                         ),
-                      ),
+                      ]
                     ],
                   ),
                   Text(
@@ -89,41 +94,56 @@ class _CartItemState extends State<CartItem> {
                   SizedBox(
                     height: ScreenHelper.giveheight(context, .02),
                   ),
-                  Container(
-                    width: ScreenHelper.givewidth(context, .35),
-                    height: ScreenHelper.giveheight(context, .05),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.all(Radius.circular(3))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            if (widget.item.quantity > 1) {
-                              setState(() {
-                                widget.item.quantity--;
-                              });
-                              _userOperations.updateItemCartQuantity(context,
-                                  widget.item.id, widget.item.quantity);
-                            }
-                          },
-                          icon: Icon(Icons.remove),
-                        ),
-                        Text("${widget.item.quantity}"),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              widget.item.quantity++;
-                            });
-                            _userOperations.updateItemCartQuantity(
-                                context, widget.item.id, widget.item.quantity);
-                          },
-                          icon: Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  )
+                  widget.orderded == false
+                      ? Container(
+                          width: ScreenHelper.givewidth(context, .35),
+                          height: ScreenHelper.giveheight(context, .05),
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  if (widget.item.quantity > 1) {
+                                    setState(() {
+                                      widget.item.quantity--;
+                                    });
+                                    _userOperations.updateItemCartQuantity(
+                                        context,
+                                        widget.item.id,
+                                        widget.item.quantity);
+                                  }
+                                },
+                                icon: Icon(Icons.remove),
+                              ),
+                              Text("${widget.item.quantity}"),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    widget.item.quantity++;
+                                  });
+                                  _userOperations.updateItemCartQuantity(
+                                      context,
+                                      widget.item.id,
+                                      widget.item.quantity);
+                                },
+                                icon: Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(
+                          width: ScreenHelper.givewidth(context, .1),
+                          height: ScreenHelper.giveheight(context, .05),
+                          child: Center(child: Text("${widget.item.quantity}")),
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
+                        )
                 ],
               ),
             )

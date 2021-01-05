@@ -99,17 +99,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       UserCredential result =
                           await _auth.signIn(_email, _password);
                       _userOperations.getCurrentUserInfo(_email, context);
+
                       if (result.user.uid == "DaNtyvAV0TaESYJULzghyMyV83T2") {
                         _isLoading(false);
                         Navigator.pushReplacementNamed(
                             context, AdminPanalScreen.routeName);
                       } else {
                         Timer(const Duration(milliseconds: 3000), () {
-                          _isLoading(false);
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                          _isLoading(true);
+                          Navigator.pushReplacementNamed(
+                              context, HomeScreen.routeName);
                         });
                       }
                     } catch (e) {

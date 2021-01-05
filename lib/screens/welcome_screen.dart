@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
-import 'package:e_commerce_app/services/store.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +13,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  final store=Store();
   @override
-  initState(){
+  initState() {
     super.initState();
-    store.loadAllProducts(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,12 +61,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             SizedBox(
               height: ScreenHelper.giveheight(context, .2),
             ),
-            CustomButton(onPressed: ()=>Navigator.pushNamed(context, LoginScreen.routeName),),
+            CustomButton(
+              onPressed: () => Navigator.pushReplacementNamed(
+                  context, LoginScreen.routeName),
+            ),
             SizedBox(
               height: ScreenHelper.giveheight(context, .02),
             ),
             FlatButton(
-                onPressed: ()=>Navigator.pushNamed(context, SignUpScreen.routeName),
+                onPressed: () => Navigator.pushReplacementNamed(
+                    context, SignUpScreen.routeName),
                 child: Center(
                     child: Text(
                   "Signup",

@@ -86,7 +86,7 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
         CustomButton(
           title: "Checkout",
           onPressed: () => _groupValue != ""
-              ? Navigator.push(
+              ? Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => CheckOutScreen(

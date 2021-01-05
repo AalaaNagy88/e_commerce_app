@@ -21,8 +21,9 @@ class CustomPickImage extends StatelessWidget {
           color: kButtonShadow,
           size: 50,
         ),
-        onPressed: () async{
-            Provider.of<ImagePickerProvider>(context,listen: false).pickImage(await getImage());
+        onPressed: () async {
+          Provider.of<ImagePickerProvider>(context, listen: false)
+              .pickImage(await getImage());
         },
       ),
     ]);
@@ -37,7 +38,6 @@ class CustomPickImage extends StatelessWidget {
     if (pickedFile != null) {
       return File(pickedFile.path);
     } else {
-      print('No image selected.');
       return null;
     }
   }

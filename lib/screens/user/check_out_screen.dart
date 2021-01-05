@@ -1,11 +1,15 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/cart_item_model.dart';
+import 'package:e_commerce_app/models/order_model.dart';
 import 'package:e_commerce_app/providers/cart_provider.dart';
+import 'package:e_commerce_app/providers/user_info_provider.dart';
+import 'package:e_commerce_app/services/user_operations.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/default_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'confirm_screen.dart';
 import 'local_widget/cart_item.dart';
 import 'local_widget/row_widget_of_checkout.dart';
 
@@ -15,6 +19,8 @@ class CheckOutScreen extends StatelessWidget {
   final String selectedAddress;
 
   CheckOutScreen({Key key, this.selectedAddress}) : super(key: key);
+  UserOperations _userOperations = UserOperations();
+
   List<CartItemModel> cart;
   @override
   Widget build(BuildContext context) {
@@ -27,9 +33,14 @@ class CheckOutScreen extends StatelessWidget {
             itemCount: cart.length,
             itemBuilder: (context, i) {
               return Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenHelper.giveheight(context, .01)),
-                  child: CartItem(item: cart[i]));
+                padding: EdgeInsets.symmetric(
+                    vertical: ScreenHelper.giveheight(context, .01)),
+                child: CartItem(
+                  item: cart[i],
+                  canBeCanceled: false,
+                  orderded: true,
+                ),
+              );
             },
           ),
         ),
@@ -62,7 +73,24 @@ class CheckOutScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: CustomButton(
-            onPressed: () {},
+            onPressed: () {
+              OrderModel order = OrderModel(
+                  address: selectedAddress,
+                  phone: Provider.of<UserInfoProvider>(context, listen: false)
+                      .user
+                      .phone,
+                  items: cartItemModelToJson(cart),
+                  total: _totalPrices());
+              try {
+                _userOperations.addNewOrder(context, order);
+                _userOperations.truncateCartAfterOrder(context);
+                Provider.of<CartProvider>(context, listen: false).cart = [];
+                Navigator.pushReplacementNamed(
+                    context, ConfirmScreen.routeName);
+              } catch (e) {
+                // print(e);
+              }
+            },
             title: "Order Now",
           ),
         )

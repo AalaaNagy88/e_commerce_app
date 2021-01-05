@@ -33,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<ProductModel> products = Provider.of<ProductItem>(context).productList;
+    List<ProductModel> products = Provider.of<List<ProductModel>>(context);
+    Provider.of<ProductItem>(context).productList = products;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -112,37 +113,41 @@ class _HomeScreenState extends State<HomeScreen> {
               HomeTitles(name: "Featured"),
               Container(
                   height: 260,
-                  child: ListView.builder(
-                    itemCount: products.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, i) {
-                      ProductModel product = products[i];
-                      int x = int.parse(product.price.trim());
-                      return x <= 500
-                          ? ProductCard(
-                              product: product,
-                              isAdmin: false,
-                            )
-                          : null;
-                    },
-                  )),
+                  child: products != null
+                      ? ListView.builder(
+                          itemCount: products.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, i) {
+                            ProductModel product = products[i];
+                            int x = int.parse(product.price.trim());
+                            return x <= 500
+                                ? ProductCard(
+                                    product: product,
+                                    isAdmin: false,
+                                  )
+                                : null;
+                          },
+                        )
+                      : Center(child: CircularProgressIndicator())),
               HomeTitles(name: "Best Sell"),
               Container(
                   height: 260,
-                  child: ListView.builder(
-                    itemCount: products.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, i) {
-                      ProductModel product = products[i];
-                      int x = int.parse(product.price.trim());
-                      return x >= 200
-                          ? ProductCard(
-                              product: product,
-                              isAdmin: false,
-                            )
-                          : null;
-                    },
-                  )),
+                  child: products != null
+                      ? ListView.builder(
+                          itemCount: products.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, i) {
+                            ProductModel product = products[i];
+                            int x = int.parse(product.price.trim());
+                            return x >= 200
+                                ? ProductCard(
+                                    product: product,
+                                    isAdmin: false,
+                                  )
+                                : null;
+                          },
+                        )
+                      : Center(child: CircularProgressIndicator())),
             ],
           ),
         ));
