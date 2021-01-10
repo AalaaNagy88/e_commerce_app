@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/controllers/app_lang_controller.dart';
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/screens/signup_screen.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
@@ -14,7 +15,6 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  String _selectedLanguage = "en";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,23 +58,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             SizedBox(
               height: ScreenHelper.giveheight(context, .1),
             ),
-            DropdownButton(
-              items: [
-                DropdownMenuItem(
-                  child: Text("English"),
-                  value: "en",
-                ),
-                DropdownMenuItem(
-                  child: Text("العربية"),
-                  value: "ar",
-                )
-              ],
-              value: _selectedLanguage,
-              onChanged: (value) {
-                setState(() {
-                  _selectedLanguage = value;
-                });
-                Get.updateLocale(Locale(_selectedLanguage));
+            GetBuilder<AppLanguageController>(
+              init: AppLanguageController(),
+              builder: (_) {
+                return DropdownButton(
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("English"),
+                      value: "en",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("العربية"),
+                      value: "ar",
+                    )
+                  ],
+                  value: _.appLanguage,
+                  onChanged: (value) {
+                    _.changeLanguage(value);
+                    Get.updateLocale(Locale(value));
+                  },
+                );
               },
             ),
             CustomButton(
