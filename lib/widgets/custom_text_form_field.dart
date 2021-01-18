@@ -9,6 +9,7 @@ class CustomTextFormField extends StatefulWidget {
   bool isPassword;
   bool isNumbersOnly;
   final String initialValue;
+  final TextEditingController controller;
 
   CustomTextFormField(
       {Key key,
@@ -16,7 +17,8 @@ class CustomTextFormField extends StatefulWidget {
       this.isPassword = false,
       this.onSaved,
       this.initialValue,
-      this.isNumbersOnly = false})
+      this.isNumbersOnly = false,
+      this.controller})
       : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       padding: EdgeInsets.symmetric(
           horizontal: ScreenHelper.givewidth(context, .05)),
       child: TextFormField(
+        controller: widget.controller,
         validator: (value) => value.isEmpty
             ? "ensureVaild".tr + " ${widget.label.toLowerCase()}"
             : null,
@@ -40,7 +43,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         obscureText: widget.isPassword,
         decoration: InputDecoration(
             labelText: "${widget.label}",
-            suffixIcon: widget.label == "Password"
+            suffixIcon: widget.label == "password".tr
                 ? IconButton(
                     icon: Icon(widget.isPassword
                         ? Icons.visibility

@@ -106,7 +106,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           Navigator.pop(context);
         } catch (e) {
           _isLoading(false);
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("${e.message}"),
           ));
         }

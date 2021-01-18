@@ -110,7 +110,7 @@ class AddAdressScreen extends StatelessWidget {
                       Navigator.pushReplacementNamed(
                           context, AllAdressesScreen.routeName);
                     } catch (e) {
-                      Scaffold.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("${e.message}"),
                       ));
                     }

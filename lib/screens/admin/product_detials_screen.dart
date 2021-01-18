@@ -43,7 +43,7 @@ class _ProductDetialsScreenState extends State<ProductDetialsScreen> {
                           });
                           Navigator.pop(context);
                         } catch (e) {
-                          Scaffold.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("${e.message}"),
                           ));
                         }

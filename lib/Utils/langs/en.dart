@@ -51,4 +51,12 @@ const Map<String, String> en = {
   "men": "Men",
   "kidsItems": "Kids Items",
   "kids": "Kids",
+  "noOrder": "No Order Yet",
+  "search": "| Search Your Product",
+  "enterName": "Type product Name",
+  "forgetPassword": "Do you forget your password ? ",
+  "resetPassword": "Reset Password",
+  "resetPasswordMesg": "Now, check your inbox and put new password",
+  "settings": "Settings",
+  "language": "Language"
 };

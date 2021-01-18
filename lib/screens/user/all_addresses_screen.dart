@@ -31,7 +31,7 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
           ? [Center(child: Text("emptyAddress".tr)), Spacer(), _screenButtons()]
           : [
               Container(
-                height: ScreenHelper.givewidth(context, 1.1),
+                height: ScreenHelper.givewidth(context, 1),
                 child: ListView.builder(
                   itemCount: user.address.length,
                   itemBuilder: (context, i) {
@@ -50,7 +50,7 @@ class _AllAdressesScreenState extends State<AllAdressesScreen> {
                   },
                 ),
               ),
-              _screenButtons()
+              Expanded(child: _screenButtons())
             ],
     );
   }

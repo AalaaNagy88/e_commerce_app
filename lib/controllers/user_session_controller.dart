@@ -13,4 +13,13 @@ class UserSessionController extends GetxController {
         : await _localStorage.readFromDisk(kUserInfoKey);
     update();
   }
+
+  changeUser(String x) {
+    if (currentUser == x)
+      return;
+    else {
+      currentUser = x;
+      _localStorage.saveToDisk(kUserInfoKey, currentUser);
+    }
+  }
 }

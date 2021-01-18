@@ -58,7 +58,7 @@ class _CustomFlatButtonState extends State<CustomFlatButton> {
         Provider.of<ProductItem>(context, listen: false)
             .isInCart(widget.product, true);
       } catch (e) {
-        Scaffold.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("${e.message}"),
         ));
       }

@@ -1,8 +1,12 @@
+import 'package:e_commerce_app/controllers/user_session_controller.dart';
 import 'package:e_commerce_app/providers/user_info_provider.dart';
+import 'package:e_commerce_app/screens/user/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
+import '../../welcome_screen.dart';
 import '../order_screen.dart';
 
 class DrawerDetials extends StatelessWidget {
@@ -39,15 +43,25 @@ class DrawerDetials extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text("help".tr),
+            // onTap: () =>
+            // Navigator.pushNamed(context, SettingsScreen.routeName)
           ),
           ListTile(
             leading: Icon(Icons.help),
             title: Text("about".tr),
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text("logout".tr),
-          ),
+          GetBuilder<UserSessionController>(
+              init: UserSessionController(),
+              builder: (_) {
+                return ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text("logout".tr),
+                    onTap: () {
+                      _.changeUser(null);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, WelcomeScreen.routeName, (route) => false);
+                    });
+              })
         ],
       ),
     );

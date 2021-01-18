@@ -51,4 +51,12 @@ const Map<String, String> ar = {
   "men": "رجال",
   "kidsItems": "منتجات أطفال",
   "kids": "أطفال",
+  "noOrder": "ليس هناك طلبات بعد",
+  "search": "| ابحث عن المنتج ",
+  "enterName": "أدخل اسم المنتج",
+  "forgetPassword": "هل نسيت كلمة المرور ؟ ",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+  "resetPasswordMesg": "الآن افحص البريد الوارد و أعد تعيين كلمة المرور",
+  "settings": "الإعدادات",
+  "language": "اللغة"
 };

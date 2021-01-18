@@ -110,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             context, LoginScreen.routeName);
                       } catch (e) {
                         _isLoading(false);
-                        Scaffold.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("${e.message}"),
                         ));
                       }

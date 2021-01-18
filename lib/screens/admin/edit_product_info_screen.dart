@@ -32,45 +32,48 @@ class _EditProductInfoScreenState extends State<EditProductInfoScreen> {
         ),
         body: ListView(
           children: [
-            ProductDetialsStep(product: widget.product,),
-                  SizedBox(
-                    height: ScreenHelper.giveheight(context, .05),
-                  ),
-                  Builder(
-                    builder: (context) => CustomButton(
-                      onPressed: () async {
-                        _catogery = CustomDropdownList.category;
-                        if (ProductDetialsStep.globalKey.currentState.validate() &&
-                            _catogery != null ) {
-                          ProductDetialsStep.globalKey.currentState.save();
-                          try {
-                            widget.product.name = ProductDetialsStep.name;
-                            widget.product.price = ProductDetialsStep.price;
-                            widget.product.description = ProductDetialsStep.description;
-                            widget.product.category = _catogery;
-                            _isLoading(true);
-                            updateProductDetials(widget.product);
-                            Navigator.popAndPushNamed(
-                                context, AdminPanalScreen.routeName);
-                            _isLoading(false);
-                          } catch (e) {
-                            _isLoading(false);
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("${e.message}"),
-                            ));
-                          }
-                        }
-                        _isLoading(false);
-                      },
-                      title: "Save edits",
-                    ),
-                  ),
-                  SizedBox(
-                    height: ScreenHelper.giveheight(context, .05),
-                  ),
-                ],
+            ProductDetialsStep(
+              product: widget.product,
+            ),
+            SizedBox(
+              height: ScreenHelper.giveheight(context, .05),
+            ),
+            Builder(
+              builder: (context) => CustomButton(
+                onPressed: () async {
+                  _catogery = CustomDropdownList.category;
+                  if (ProductDetialsStep.globalKey.currentState.validate() &&
+                      _catogery != null) {
+                    ProductDetialsStep.globalKey.currentState.save();
+                    try {
+                      widget.product.name = ProductDetialsStep.name;
+                      widget.product.price = ProductDetialsStep.price;
+                      widget.product.description =
+                          ProductDetialsStep.description;
+                      widget.product.category = _catogery;
+                      _isLoading(true);
+                      updateProductDetials(widget.product);
+                      Navigator.popAndPushNamed(
+                          context, AdminPanalScreen.routeName);
+                      _isLoading(false);
+                    } catch (e) {
+                      _isLoading(false);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("${e.message}"),
+                      ));
+                    }
+                  }
+                  _isLoading(false);
+                },
+                title: "Save edits",
               ),
             ),
+            SizedBox(
+              height: ScreenHelper.giveheight(context, .05),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

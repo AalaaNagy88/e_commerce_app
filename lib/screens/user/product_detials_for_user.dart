@@ -4,6 +4,7 @@ import 'package:e_commerce_app/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import 'cart_screen.dart';
 import 'local_widget/card_size.dart';
 import 'local_widget/custom_flat_button.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -50,7 +51,8 @@ class _ProductDetialsForUserState extends State<ProductDetialsForUser> {
               Icons.shopping_cart,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, CartScreen.routeName),
           )
         ],
       ),

@@ -117,7 +117,6 @@ class UserOperations with ChangeNotifier {
           .collection(kCartListCollectionName)
           .add(cartItemModel.toJson())
           .then((value) {
-        updateUserData(context);
         firebaseFirestore
             .collection(kCartCollectionName)
             .doc(userModel.cartId)
@@ -143,11 +142,25 @@ class UserOperations with ChangeNotifier {
   addNewOrder(context, OrderModel order) {
     UserModel userModel =
         Provider.of<UserInfoProvider>(context, listen: false).user;
-    firebaseFirestore.collection(kOrderCollectionName).add(order.toJson()).then(
-        (value) => firebaseFirestore
+    if (userModel.orderId == "") {
+      firebaseFirestore
+          .collection(kOrderCollectionName)
+          .add(order.toJson())
+          .then((value) {
+        firebaseFirestore
             .collection(kUserCollectionName)
             .doc(userModel.id)
-            .update({"OrderId": value.id}));
+            .update({"OrderId": value.id});
+        Provider.of<UserInfoProvider>(context, listen: false).user.orderId =
+            value.id;
+        updateUserData(context);
+      });
+    } else {
+      firebaseFirestore
+          .collection(kOrderCollectionName)
+          .doc(userModel.orderId)
+          .update({"items": order.items});
+    }
   }
 
   Stream<DocumentSnapshot> laodCurrentUserOrder(context) {

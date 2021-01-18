@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/helper/screen_helper.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/product_item_provider.dart';
+import 'package:e_commerce_app/screens/user/cart_screen.dart';
 import 'package:e_commerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class CustomScreenCatogery extends StatelessWidget {
               Icons.shopping_cart,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () =>Navigator.pushReplacementNamed(context, CartScreen.routeName),
           )
         ],
       ),
