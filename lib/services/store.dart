@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/constants.dart';
+import 'package:e_commerce_app/models/order_model.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/providers/image_picker_provider.dart';
 import 'package:provider/provider.dart';
@@ -63,6 +64,13 @@ class Store {
         .map((snapShot) => snapShot.docs
             .map((document) =>
                 ProductModel.fromJson(document.data(), document.id))
+            .toList());
+  }
+
+  Stream<List<OrderModel>> loadAllorders() {
+    return firebaseFirestore.collection(kOrderCollectionName).snapshots().map(
+        (snapShot) => snapShot.docs
+            .map((document) => OrderModel.fromJson(document.data()))
             .toList());
   }
 }

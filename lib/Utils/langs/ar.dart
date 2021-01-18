@@ -42,7 +42,7 @@ const Map<String, String> ar = {
   "adressLane": "اسم الشارع",
   "city": "المدينة",
   "postalCode": "الرمز البريدي",
-  "phoneNumber": "وقم الهاتف",
+  "phoneNumber": "رقم الهاتف",
   "addedToCart": "تمت الإضافة للعربة",
   "addToCart": "أضف إلى العربة",
   "womenItems": "منتجات نسائية",

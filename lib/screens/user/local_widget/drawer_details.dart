@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/controllers/user_session_controller.dart';
 import 'package:e_commerce_app/providers/user_info_provider.dart';
-import 'package:e_commerce_app/screens/user/settings_screen.dart';
+//import 'package:e_commerce_app/screens/user/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';

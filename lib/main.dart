@@ -5,8 +5,10 @@ import 'package:e_commerce_app/providers/product_item_provider.dart';
 import 'package:e_commerce_app/providers/user_info_provider.dart';
 import 'package:e_commerce_app/screens/admin/add_new_product_screen.dart';
 import 'package:e_commerce_app/screens/admin/admin_panal_screen.dart';
+import 'package:e_commerce_app/screens/admin/all_orders_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_image_screen.dart';
 import 'package:e_commerce_app/screens/admin/edit_product_info_screen.dart';
+import 'package:e_commerce_app/screens/admin/order_detials.dart';
 import 'package:e_commerce_app/screens/loading.dart';
 import 'package:e_commerce_app/screens/login_screen.dart';
 import 'package:e_commerce_app/screens/reset_password_screen.dart';
@@ -90,6 +92,8 @@ class MyApp extends StatelessWidget {
           SettingsScreen.routeName: (context) => SettingsScreen(),
           ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
           ChangeLanguageScreen.routeName: (context) => ChangeLanguageScreen(),
+          AllOrdersScreen.routeName: (context) => AllOrdersScreen(),
+          OrderDetials.routeName: (context) => OrderDetials(),
         },
         translations: TranslationClass(),
         locale: Locale("en"),
