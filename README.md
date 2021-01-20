@@ -8,6 +8,6 @@ A Flutter application for selling and buying clothes for women, men and kides. T
 
 ## Admin Part
 
-[![User part run](https://img.youtube.com/vi/xhmB-dOMnDY/0.jpg)](https://www.youtube-nocookie.com/embed/fNHWkM3QpPA)
+[![Admin part run](https://img.youtube.com/vi/xhmB-dOMnDY/0.jpg)](https://www.youtube-nocookie.com/embed/xhmB-dOMnDY)
 
 - [For Test app: release version](https://drive.google.com/file/d/10Io967kg12jFQYFrJeCxAuxg5mvYCxLq/view)
